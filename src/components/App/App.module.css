@@ -1,0 +1,9 @@
+.app {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.app h1 {
+    color: white;
+    text-align: center; 
+}
