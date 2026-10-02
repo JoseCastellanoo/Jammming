@@ -13,7 +13,7 @@ async function spotifyFetch(endpoint, accessToken, options = {}) {
     if (!url.ok) {
         const errorData = await url.json().catch(() => null);
 
-        throw new Error(error.data?.error?.message || `Spotify API error: ${url.status}`);
+        throw new Error(errorData?.error?.message || `Spotify API error: ${url.status}`);
     }
 
     return url.json();
@@ -44,7 +44,7 @@ async function savePlaylist(name, trackUris, accessToken) {
         body: JSON.stringify({name, public: false, description: "Created with Jammming", }),
     })
 
-    await spotifyFetch(`/playlists/${playlist.id}/tracks`, accessToken, {
+    await spotifyFetch(`/playlists/${playlist.id}/items`, accessToken, {
         method: "POST",
         body: JSON.stringify({uris: trackUris}),
     });

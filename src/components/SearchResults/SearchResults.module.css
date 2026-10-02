@@ -1,12 +1,15 @@
 .searchResults {
     width: 100%;
-    padding: 15px;
+    padding: 24px;
     background-color: white;
     border-radius: 8px;
+    box-sizing: border-box;
+    color: #222;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 .searchResults h2 {
-    color: black;
-    margin-top: 0;
+    color: #111;
+    margin: 0 0 18px;
     text-align: center;
 }
