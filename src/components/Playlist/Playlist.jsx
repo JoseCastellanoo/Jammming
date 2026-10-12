@@ -1,7 +1,7 @@
 import TrackList from '../TrackList/TrackList.jsx';
 import styles from './Playlist.module.css';
 
-function Playlist({tracks, onRemove, name, onNameChange, onSave}) {
+function Playlist({tracks, onRemove, name, onNameChange, onSave, isSaving, saveError}) {
     return (
         <section className={styles.playlist}>
             <TrackList 
@@ -20,10 +20,19 @@ function Playlist({tracks, onRemove, name, onNameChange, onSave}) {
                 <button
                     type="button"
                     onClick={onSave}
-                    disabled={!name.trim() || tracks.length === 0}
+                    disabled={!name.trim() || tracks.length === 0 || isSaving}
                 >
-                    Save to Spotify
+                    {isSaving ? (
+                        <>
+                            <span className={styles.spinner} aria-hidden="true"></span>
+                            Saving...
+                        </>
+                    ) : (
+                        "Save to Spotify"
+                    )}
                 </button>
+
+                {saveError && (<p role="alert">{saveError}</p>)}
             </div>
         </section>
     )

@@ -15,7 +15,7 @@ async function generateCode(verifier) {
     const data = new TextEncoder().encode(verifier);
 
     const digest = await crypto.subtle.digest("SHA-256", data);
-
+    
     return btoa(String.fromCharCode(...new Uint8Array(digest)))
         .replace(/\+/g, "-")
         .replace(/\//g, "_")
@@ -45,14 +45,14 @@ async function getAccessToken() {
     const savedToken = sessionStorage.getItem("access_token");
 
     const expiresItem = sessionStorage.getItem("expires_at");
-
+    
     if (savedToken && expiresItem && new Date().getTime() < parseInt(expiresItem)) {
         return savedToken;
-    }
+    }   
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
-
+    
     if (!code) {
         login();
         return null;
@@ -96,4 +96,4 @@ async function getAccessToken() {
     return accessToken;
 };
 
-export {getAccessToken };
+export { getAccessToken }

@@ -10,6 +10,8 @@ function App() {
     const [searchResults, setSearchResults] = useState([]);
     const [playlist, setPlaylist] = useState([]);
     const [playlistName, setPlaylistName] = useState("My Playlist");
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState("");
 
     function removeTrack(track) {
         setPlaylist(prevPlaylist => prevPlaylist.filter(item => item.id !== track.id));
@@ -27,13 +29,15 @@ function App() {
 
     async function savePlaylist() {
         const normalPlaylist = playlistName.trim();
-        if (!normalPlaylist || playlist.length === 0) {
+        if (!normalPlaylist || playlist.length === 0 || isSaving) {
             return;
         }
 
         const trackUris = playlist.map((track) => track.uri);
 
         try {
+            setIsSaving(true);
+
             const accessToken = await getAccessToken();
 
             if(!accessToken) {
@@ -46,6 +50,10 @@ function App() {
             setPlaylistName("New Playlist");
         } catch (error) {
             console.log("Error saving playlist: ", error);
+
+            setSaveError("Failed to save playlist");
+        } finally {
+            setIsSaving(false);
         }
     }
 
@@ -85,7 +93,11 @@ function App() {
                     onRemove={removeTrack}
                     name={playlistName}
                     onNameChange={changePlaylistName}
-                    onSave={savePlaylist} />
+                    onSave={savePlaylist} 
+                    isSaving={isSaving}
+                    saveError={saveError}
+                />
+
             </div>
         </main>
     )
