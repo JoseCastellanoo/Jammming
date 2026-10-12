@@ -48,7 +48,7 @@
     height: 15px;
     border: 2px solid rgb(210, 81, 81);
     border-radius: 50%;
-
+    border-top-color: white;
     animation: spin 1s linear infinite;
     vertical-align: middle;
 }

@@ -32,6 +32,7 @@ function App() {
         if (!normalPlaylist || playlist.length === 0 || isSaving) {
             return;
         }
+        setSaveError("");
 
         const trackUris = playlist.map((track) => track.uri);
 
